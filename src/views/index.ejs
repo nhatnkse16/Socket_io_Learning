@@ -4,6 +4,7 @@
 <head>
     <title>Socket.IO chat</title>
 </head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
     body {
         margin: 0;
@@ -24,19 +25,28 @@
         backdrop-filter: blur(10px);
     }
 
-    #input {
+    #input_name {
+        border: none;
+        padding: 0 1rem;
+        border-radius: 2rem;
+        margin: 0.25rem;
+        text-align: center;
+    }
+
+    #input_data {
         border: none;
         padding: 0 1rem;
         flex-grow: 1;
         border-radius: 2rem;
         margin: 0.25rem;
+        text-align: end;
     }
 
-    #input:focus {
+    #input_data:focus {
         outline: none;
     }
 
-    #form>button {
+    #sendData {
         background: #fa4040;
         border: none;
         padding: 0 1rem;
@@ -46,14 +56,13 @@
         color: #fff;
     }
 
-    #messages {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
+    i {
+        margin-top: 50%;
     }
 
-    #messages>li {
-        padding: 0.5rem 1rem;
+    #messages {
+        list-style-type: none;
+        margin-bottom: 10px;
     }
 
     #messages>li:nth-child(odd) {
@@ -64,10 +73,10 @@
 <body>
     <ul id="messages"></ul>
     <form id="form" action="">
-        <input id="input" autocomplete="off" /><button>Send</button>
+        <input id="input_name" autocomplete="off" value="User" />
+        <input id="input_data" autocomplete="off" placeholder="Enter messages" />
+        <button type="button" id="sendData"><i class="fa-solid fa-paper-plane"></i></button>
     </form>
-
-
 </body>
 <script src="socket.io/socket.io.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
@@ -76,9 +85,22 @@
 <script>
     const socket = io(`http://localhost:8081`);
 
+    /** Client gửi data lên Server */
     $(document).ready(function () {
+        $('#sendData').click(function () {
+            var name = $('#input_name').val();
+            var message = $('#input_data').val();
+            var client_data_send = name + ': ' + message;
 
+            socket.emit('Client_Send_Data', client_data_send);        // Truyền 2 tham số: Tham số thứ 1 là tên kêt nối (Tên nó emit lên), tham số thứ 2 là value muốn truyền
+        });
     });
+
+    /** Server gửi data về Client */
+    socket.on('Server_Send_Data', function (data) {
+        $('#messages').append(data + '<br><br>');
+    });
+
 </script>
 
 </html>

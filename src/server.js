@@ -59,5 +59,11 @@ io.on('connection', function (socket) {                   // Lắng nghe có ng�
         console.log('\n*****************************');
     })
 
+    /** Lấy ra data người dùng gửi lên Server */
+    socket.on('Client_Send_Data', function (data) {
+        console.log('Client ' + socket.id + ' send data: ' + data);
+
+        io.sockets.emit('Server_Send_Data', data);          // Trong hàm này, Server sẽ phát tín hiệu về cho toàn bộ client (Kể cả người gửi)
+    });
 });
 
