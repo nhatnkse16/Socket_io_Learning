@@ -63,7 +63,15 @@ io.on('connection', function (socket) {                   // Lắng nghe có ng�
     socket.on('Client_Send_Data', function (data) {
         console.log('Client ' + socket.id + ' send data: ' + data);
 
-        io.sockets.emit('Server_Send_Data', data);          // Trong hàm này, Server sẽ phát tín hiệu về cho toàn bộ client (Kể cả người gửi)
+        // io.sockets.emit('Server_Send_Data', data);               // Trong hàm này, Server sẽ phát tín hiệu (Value) về cho toàn bộ client (Kể cả người gửi)
+
+        // socket.emit('Server_Send_Data', data);                   // Trong hàm này, Server chỉ trả tín hiệu (Value) về cho người gửi nó lên
+
+        // socket.broadcast.emit('Server_Send_Data', data);           // Trong hàm này, Server sẽ phát tín hiệu (Value) về cho toàn bộ client khác (Trừ người gửi)
+
+        /** Để gửi riêng cho từng người ==> Gửi đến Client theo Socket_ID người nhận (Tìm cách giữ lại Socket_ID) */
+        // io.to("socket.id").emit();
+
     });
 });
 
