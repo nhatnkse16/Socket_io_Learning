@@ -15,7 +15,8 @@ const path = require('path');
 /** Khai báo express */
 const express = require('express');
 const app = express();
-app.use(express.static('./public'));
+// app.use(express.static('./public'));
+app.use(express.static(__dirname + '/public'));
 
 /** Khai báo path đến file ejs */
 app.set('views', path.join('./src', 'views'));
@@ -38,11 +39,10 @@ app.get('/', function (req, res) {
 });
 
 
-
-/** 
- * 
+/**
+ *
  * CẤU HÌNH SOCKET IO
- * 
+ *
  */
 
 
