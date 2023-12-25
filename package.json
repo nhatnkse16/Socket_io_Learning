@@ -14,9 +14,9 @@
   "author": "NgKN",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/nhatnkse16/Socket_NodeJS_Chat_Box/issues"
+    "url": "https://github.com/nhatnkse16/Socket_io_Learning/issues"
   },
-  "homepage": "https://github.com/nhatnkse16/Socket_NodeJS_Chat_Box#readme",
+  "homepage": "https://github.com/nhatnkse16/Socket_io_Learning#readme",
   "dependencies": {
     "dotenv": "^16.3.1",
     "dotenv-webpack": "^8.0.1",
